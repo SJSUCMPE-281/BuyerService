@@ -4,7 +4,6 @@ import com.marketplace.buyerservice.models.Buyer;
 import com.marketplace.buyerservice.repositories.BuyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.UUID;
 
 @Service
 public class BuyerService {
@@ -13,7 +12,6 @@ public class BuyerService {
     BuyerRepository buyerRepository;
 
     public Buyer save(Buyer buyer){
-        buyer.setBuyerId(UUID.randomUUID().toString());
         return buyerRepository.save(buyer);
     }
 }
