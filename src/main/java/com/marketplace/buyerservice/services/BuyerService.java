@@ -1,5 +1,6 @@
 package com.marketplace.buyerservice.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marketplace.buyerservice.models.Buyer;
 import com.marketplace.buyerservice.repositories.BuyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,12 @@ public class BuyerService {
     @Autowired
     BuyerRepository buyerRepository;
 
-    public Buyer save(Buyer buyer){
-        return buyerRepository.save(buyer);
+    @Autowired
+    PublisherClient publisherClient;
+
+    public Buyer save(Buyer buyer) throws JsonProcessingException {
+        Buyer newBuyer = buyerRepository.save(buyer);
+        publisherClient.publishUserRegistrationEvent(newBuyer);
+        return newBuyer;
     }
 }
