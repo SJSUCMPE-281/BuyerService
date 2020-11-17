@@ -1,5 +1,6 @@
 package com.marketplace.buyerservice.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marketplace.buyerservice.models.Sale;
 import com.marketplace.buyerservice.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping
-    public Sale save(@PathVariable String buyerId, @RequestBody Sale sale){
+    public Sale save(@PathVariable String buyerId, @RequestBody Sale sale) throws JsonProcessingException {
         return orderService.save(sale,buyerId);
     }
 
