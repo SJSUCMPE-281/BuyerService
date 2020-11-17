@@ -1,5 +1,6 @@
 package com.marketplace.buyerservice.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.marketplace.buyerservice.models.Buyer;
 import com.marketplace.buyerservice.models.Product;
 import com.marketplace.buyerservice.models.Sale;
@@ -31,8 +32,11 @@ public class OrderService {
     @Autowired
     OrderDetailsRepository orderDetailsRepository;
 
+    @Autowired
+    PublisherClient publisherClient;
+
     @Transactional
-    public Sale save(Sale sale, String buyerId){
+    public Sale save(Sale sale, String buyerId) throws JsonProcessingException {
         Buyer buyer = buyerRepository.findById(buyerId).get();
         sale.setOrderId(UUID.randomUUID().toString());
         sale.setBuyer(buyer);
@@ -47,7 +51,9 @@ public class OrderService {
             orderDetailsList.add(orderDetailsRepository.save(details));
         }
         sale.setOrderDetails(orderDetailsList);
-        return orderRepository.save(sale);
+        Sale newSale = orderRepository.save(sale);
+        publisherClient.publishOrderEvent(newSale);
+        return newSale;
     }
 
     public Sale get(String orderId){
