@@ -3,7 +3,6 @@ package com.marketplace.buyerservice.models;
 import lombok.Data;
 
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +17,7 @@ public class SaleDTO {
     BigDecimal totalAmount;
     String status;
     String trackingId;
-    @OneToOne
-    UserDTO buyer;
+    String buyerId;
     Date createdAt;
     Date updatedAt;
 }
