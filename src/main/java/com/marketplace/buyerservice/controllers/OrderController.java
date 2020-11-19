@@ -22,4 +22,9 @@ public class OrderController {
     public Sale getOrder(@PathVariable String orderId){
         return orderService.get(orderId);
     }
+
+    @GetMapping
+    public Iterable<Sale> getAll(@PathVariable String buyerId){
+        return orderService.getAll(buyerId);
+    }
 }

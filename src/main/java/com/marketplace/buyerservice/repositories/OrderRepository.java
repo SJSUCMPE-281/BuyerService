@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Sale,String> {
+
+    Iterable<Sale> findByBuyer_BuyerIdOrderByUpdatedAtDesc(String id);
 }

@@ -59,4 +59,8 @@ public class OrderService {
     public Sale get(String orderId){
         return orderRepository.findById(orderId).get();
     }
+
+    public Iterable<Sale> getAll(String buyerId){
+        return orderRepository.findByBuyer_BuyerIdOrderByUpdatedAtDesc(buyerId);
+    }
 }
