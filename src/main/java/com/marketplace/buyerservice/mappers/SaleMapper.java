@@ -17,6 +17,7 @@ public class SaleMapper {
 
     public SaleDTO toDTO(Sale sale){
         SaleDTO saleDTO = new SaleDTO();
+        saleDTO.setOrderId(sale.getOrderId());
         List<OrderDetails> orderDetailsList = sale.getOrderDetails();
         OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
         List<OrderDetailsDTO> orderDetailsDTOList = new ArrayList<>();
@@ -42,7 +43,7 @@ public class SaleMapper {
         saleDTO.setTotalAmount(sale.getTotalAmount());
         saleDTO.setStatus("PLACED");
         saleDTO.setTrackingId(sale.getTrackingId());
-        saleDTO.setBuyer(userMapper.toDTO(sale.getBuyer()));
+        saleDTO.setBuyerId(sale.getBuyer().getBuyerId());
         saleDTO.setCreatedAt(sale.getCreatedAt());
         saleDTO.setUpdatedAt(sale.getUpdatedAt());
         return saleDTO;
