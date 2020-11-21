@@ -1,10 +1,7 @@
 package com.marketplace.buyerservice.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.marketplace.buyerservice.models.Buyer;
-import com.marketplace.buyerservice.models.Product;
-import com.marketplace.buyerservice.models.Sale;
-import com.marketplace.buyerservice.models.OrderDetails;
+import com.marketplace.buyerservice.models.*;
 import com.marketplace.buyerservice.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +59,24 @@ public class OrderService {
 
     public Iterable<Sale> getAll(String buyerId){
         return orderRepository.findByBuyer_BuyerIdOrderByUpdatedAtDesc(buyerId);
+    }
+
+    public Iterable<Sale> getOpenOrders(String sellerId){
+        return orderRepository.findBySellerIdAndStatusIsNotOrderByUpdatedAtDesc(sellerId,OrderStatus.SHIPPED);
+    }
+
+    public Iterable<Sale> getCompletedOrders(String sellerId){
+        return orderRepository.findBySellerIdAndStatusIsNotOrderByUpdatedAtDesc(sellerId,OrderStatus.ORDERED);
+    }
+
+    public Sale update(Sale sale) throws JsonProcessingException {
+        Sale oldOrder = orderRepository.findById(sale.getOrderId()).get();
+        if(sale.getTrackingId() != null){
+            oldOrder.setTrackingId(sale.getTrackingId());
+        }
+        oldOrder.setStatus(OrderStatus.SHIPPED);
+        Sale newSale = orderRepository.save(oldOrder);
+        publisherClient.publishOrderEvent(newSale);
+        return newSale;
     }
 }
