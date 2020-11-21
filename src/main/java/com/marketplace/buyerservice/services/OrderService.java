@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,5 +82,14 @@ public class OrderService {
         Sale newSale = orderRepository.save(oldOrder);
         publisherClient.publishOrderEvent(newSale);
         return newSale;
+    }
+    public BillingData getSellerBillingData(String sellerId){
+        LocalDateTime date = LocalDateTime.now().minusDays(30);
+        Date newDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant());
+        Object object[] =(Object[]) orderRepository.findSellerBillingDetails(sellerId,newDate);
+        BillingData billingData = new BillingData();
+        billingData.setSaleAmount((BigDecimal) object[1]);
+        billingData.setSaleCount((Long)object[0]);
+        return billingData;
     }
 }
