@@ -26,6 +26,7 @@ public class Sale {
     BigDecimal totalAmount;
     OrderStatus status;
     String trackingId;
+    String sellerId;
     @OneToOne
     Buyer buyer;
     @CreatedDate

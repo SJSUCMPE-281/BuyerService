@@ -27,4 +27,5 @@ public class OrderController {
     public Iterable<Sale> getAll(@PathVariable String buyerId){
         return orderService.getAll(buyerId);
     }
+
 }
