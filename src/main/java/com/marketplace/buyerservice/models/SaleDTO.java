@@ -18,6 +18,11 @@ public class SaleDTO {
     String status;
     String trackingId;
     String buyerId;
+    String address1;
+    String address2;
+    String city;
+    String state;
+    String zip;
     Date createdAt;
     Date updatedAt;
 }

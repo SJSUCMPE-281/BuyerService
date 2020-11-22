@@ -19,9 +19,9 @@ public class SaleMapper {
         SaleDTO saleDTO = new SaleDTO();
         saleDTO.setOrderId(sale.getOrderId());
         List<OrderDetails> orderDetailsList = sale.getOrderDetails();
-        OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
         List<OrderDetailsDTO> orderDetailsDTOList = new ArrayList<>();
         for(OrderDetails orderDetails:orderDetailsList){
+            OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO();
             orderDetailsDTO.setOrderDetailsId(orderDetails.getOrderDetailsId());
             orderDetailsDTO.setProductId(orderDetails.getProduct().getProductId());
             orderDetailsDTO.setProductName(orderDetails.getProduct().getProductName());
@@ -44,6 +44,11 @@ public class SaleMapper {
         saleDTO.setStatus("PLACED");
         saleDTO.setTrackingId(sale.getTrackingId());
         saleDTO.setBuyerId(sale.getBuyer().getBuyerId());
+        saleDTO.setAddress1(sale.getAddress().getStreet1());
+        saleDTO.setAddress2(sale.getAddress().getStreet2());
+        saleDTO.setCity(sale.getAddress().getCity());
+        saleDTO.setState(sale.getAddress().getState());
+        saleDTO.setZip(sale.getAddress().getZip());
         saleDTO.setCreatedAt(sale.getCreatedAt());
         saleDTO.setUpdatedAt(sale.getUpdatedAt());
         return saleDTO;
