@@ -20,6 +20,7 @@ public class Product {
     String imageUrl;
     String category;
     int reviewCount;
+    boolean activeFlag=true;
     Double rating;
     Date createdAt;
     Date updatedAt;

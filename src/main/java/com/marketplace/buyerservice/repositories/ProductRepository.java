@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product,String> {
-    Page<Product> findAll(Pageable pageable);
+    Page<Product> findAllByActiveFlagEquals(Pageable pageable,boolean activeFlag);
 }

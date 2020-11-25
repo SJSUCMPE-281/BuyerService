@@ -26,7 +26,9 @@ public class SQSListener {
         EventType event = snsMessage.getEventType();
         Product product = snsMessage.getProductDTO();
         if(event.name().equals("ENTITY_DELETE")) {
-            productService.delete(product);
+            Product productRO = productService.getProduct(product.getProductId());
+            productRO.setActiveFlag(false);
+            productService.save(productRO);
         } else {
             productService.save(product);
         }
