@@ -21,7 +21,7 @@ public class ProductService {
     }
 
     public Page<Product> get(Pageable page){
-        return  productRepository.findAll(page);
+        return  productRepository.findAllByActiveFlagEquals(page,true);
     }
 
     public Product getProduct(String id){
