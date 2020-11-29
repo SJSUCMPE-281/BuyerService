@@ -16,8 +16,12 @@ public class BuyerService {
     PublisherClient publisherClient;
 
     public Buyer save(Buyer buyer) throws JsonProcessingException {
-        Buyer newBuyer = buyerRepository.save(buyer);
-        publisherClient.publishUserRegistrationEvent(newBuyer);
-        return newBuyer;
+        try {
+            return buyerRepository.findById(buyer.getBuyerId()).get();
+        } catch (Exception e){
+            Buyer newBuyer = buyerRepository.save(buyer);
+            publisherClient.publishUserRegistrationEvent(newBuyer);
+            return newBuyer;
+        }
     }
 }
