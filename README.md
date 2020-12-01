@@ -44,10 +44,6 @@ Solution for Customers:
 
 ![Buyer Login Page](https://github.com/SJSUCMPE-281/BuyerService/blob/main/images/buyer-login-oauth.png)
 
-- **Buyer Profile Page**
-
-![Buyer Profile Page]
-
 - **Buyer Home Page**
 
 ![Buyer Home Page](https://github.com/SJSUCMPE-281/BuyerService/blob/main/images/Buyer-home-page.png)
